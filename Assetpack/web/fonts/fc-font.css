@@ -1,0 +1,49 @@
+/* FC Font - self-hosted. Files live in /fonts (public/fonts in the Lovable project). */
+/* body */
+@font-face {
+  font-family: "FC Font Info";
+  src: url("/fonts/FCFontInfo.woff") format("woff"), url("/fonts/FCFontInfo.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+/* body bold */
+@font-face {
+  font-family: "FC Font Info Bold";
+  src: url("/fonts/FCFontInfoBold.woff") format("woff"), url("/fonts/FCFontInfoBold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+/* labels, tickers, buttons */
+@font-face {
+  font-family: "FC Font Caps";
+  src: url("/fonts/FCFontCaps.woff") format("woff"), url("/fonts/FCFontCaps.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+/* small UI / ingredient lines */
+@font-face {
+  font-family: "FC Font Net";
+  src: url("/fonts/FCFontNet.woff") format("woff"), url("/fonts/FCFontNet.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+/* display headlines */
+@font-face {
+  font-family: "FC Font Wordmark";
+  src: url("/fonts/FCFontWordmark.woff") format("woff"), url("/fonts/FCFontWordmark.ttf") format("truetype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+/* long-form display / quotes */
+@font-face {
+  font-family: "FC Font Story";
+  src: url("/fonts/FCFontStory.woff") format("woff"), url("/fonts/FCFontStory.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+/* italic accents in headlines */
+@font-face {
+  font-family: "FC Font Tagline";
+  src: url("/fonts/FCFontTagline-Italic.woff") format("woff"), url("/fonts/FCFontTagline-Italic.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+/* flavour names */
+@font-face {
+  font-family: "FC Font Flavour";
+  src: url("/fonts/FCFontFlavour-Italic.woff") format("woff"), url("/fonts/FCFontFlavour-Italic.ttf") format("truetype");
+  font-weight: 600; font-style: italic; font-display: swap;
+}
