@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fizzy &amp; Crush SVG demo</title>
+<style>body{margin:0;background:#fce9be;font:14px sans-serif;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px}
+.cell{background:url(pattern_cream.svg) center/900px;padding:8px}.cell svg{width:100%;height:auto;display:block}
+.s{background:#fce9be}.s svg{height:420px}</style></head><body>
+<div class="cell" id="a"></div><div class="cell" id="b"></div><div class="cell" id="c"></div>
+<div class="cell s" id="d"></div><div class="cell s" id="e"></div><div class="cell s" id="f"></div>
+<script>
+const q=new URLSearchParams(location.search);
+Promise.all(['logo_loader.svg','straw_fill.svg'].map(f=>fetch(f).then(r=>r.text()))).then(([l,s])=>{
+ [['a',.15],['b',.5],['c',.9]].forEach(([id,v])=>{const e=document.getElementById(id);e.innerHTML=l.replaceAll('fcl-letters','fcl-'+id);e.firstElementChild.style.setProperty('--fill',v)});
+ [['d',.2],['e',.6],['f',1]].forEach(([id,v],i)=>{const e=document.getElementById(id);e.innerHTML=s.replaceAll('fcs-','fcs'+id+'-');const sv=e.firstElementChild;sv.style.setProperty('--fill',v);if(i==1){sv.style.setProperty('--liq-a','#c40831')}});
+});
+</script></body></html>

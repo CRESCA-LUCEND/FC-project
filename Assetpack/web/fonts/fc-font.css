@@ -1,4 +1,10 @@
 /* FC Font - self-hosted. Files live in /fonts (public/fonts in the Lovable project). */
+/* headlines (site v2) */
+@font-face {
+  font-family: "FC Display";
+  src: url("/fonts/FCDisplay-Regular.woff2") format("woff2"), url("/fonts/FCDisplay-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
 /* body */
 @font-face {
   font-family: "FC Font Info";
@@ -8,7 +14,7 @@
 /* body bold */
 @font-face {
   font-family: "FC Font Info Bold";
-  src: url("/fonts/FCFontInfoBold.woff") format("woff"), url("/fonts/FCFontInfoBold.ttf") format("truetype");
+  src: url("/fonts/FCFontInfoBold.woff2") format("woff2"), url("/fonts/FCFontInfoBold.woff") format("woff"), url("/fonts/FCFontInfoBold.ttf") format("truetype");
   font-weight: 700; font-style: normal; font-display: swap;
 }
 /* labels, tickers, buttons */

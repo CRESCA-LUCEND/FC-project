@@ -1,296 +1,180 @@
-# Lovable prompt — Fizzy & Crush website
+# Lovable prompt — Fizzy & Crush website (v2, built from the site mockup)
 
-Paste everything below the line into Lovable. Upload the files listed under "Assets" first (drag the `web` folder plus the SVGs and label PNGs into the chat or the project's `public/assets` folder).
+Paste everything below the line into Lovable. Upload the `web` folder first (it holds the GLB cans, WebP renders, fonts and the ready-made interactive SVGs) together with `reference/site_mockup.jpg`, and put the files in the project's `public/assets` folder (fonts in `public/fonts`).
 
 ---
 
-Build a one-page, award-level, highly interactive marketing site for **Fizzy & Crush**, a creamy soda brand. It should feel like an Awwwards Site of the Day: bold, playful, tactile and smooth, never like a template. The site sells two flavours in 500 ml cans and the kraft six-packs they come in.
+Build a one-page marketing site for **Fizzy & Crush**, a creamy soda in 500 ml cans that pairs bright fruit with smooth vanilla. **The layout must match the attached mockup `reference/site_mockup.jpg` section by section**: same order, same colours, same type, same composition. Do not add sections, a top navigation bar, carousels or extra UI that is not in the mockup. Where this prompt describes motion, the mockup shows the resting state.
 
-## Two references and what to take from each
+The page has eight parts, top to bottom:
 
-**1. https://www.slight-twist.co.nz (structure — how a drinks site is built).** Take its page flow and its commerce logic:
-- a hero with a short promise and a "Shop now" button
-- a strip of product facts
-- a "why it's good" block
-- a looping marquee line
-- a draggable "Our range" carousel ("Drag to view") with an ingredient line on each card
-- one full-bleed section per flavour in that flavour's colour, each with a big name, an ingredient line, three short taste notes and a "Shop now" button
-- a multipack section listing what is inside
-- a newsletter sign-up, stockists and a footer
+0. Loading screen (logo fills with soda)
+1. Hero: "Fruit meets vanilla", interactive 3D can, flavour switch
+2. Story: "A soda made for slow sips and big grins", straw fills while scrolling
+3. "80 kcal / can" with an image or video frame
+4. Rhubarb & Vanilla (blue)
+5. Lemon & Vanilla (red)
+6. Six-pack: "Six cans in one crush"
+7. Footer with the IconBev logo
 
-Leave out its age gate (this is a soft drink).
+## Brand tokens
 
-**2. https://casadisolare.com (design and interaction — the main inspiration).** Take its art direction and interaction quality:
-- a calm preloader that opens into the site through a growing circular clip-mask
-- huge, confident display type set in staggered lines with words in different styles inside one headline (e.g. "A *creamy* soda / inspired by / the MELT of / VANILLA*")
-- a glowing, slowly moving WebGL shape as the emotional centrepiece
-- sections that reveal through circular and rounded clip-masks while you scroll
-- a sticky minimal top bar with section names and a live dot showing where you are (Intro · Flavours · Six-packs · Taste · Find us), plus a pill CTA on the right ("Buy a six-pack")
-- an interactive list where hovering an item restyles a huge headline (their weight list)
-- a tester with sliders that changes the content live (their type tester)
-- a "hover to reveal illustration" story block
-- a "Thank you for visiting" footer with huge type
-
-Smooth, inertial scrolling throughout. Implement as much of the Casa di Solare interaction language as possible; that is the point of this site.
-
-## Brand
-
-- **Name:** Fizzy & Crush. Always written with the "&".
-- **What it is:** creamy soda in 500 ml aluminium cans. It pairs bright fruit with smooth vanilla. Two flavours:
-  - **Rhubarb & Vanilla:** owns BLUE.
-  - **Lemon & Vanilla:** owns PINK.
-- **Look:** playful, retro, sunny. A bubbly rounded wordmark sits over a flowing cream "melt" pattern.
-- **Six-packs:** printed kraft cartons with die-cut logo windows, so the cans show through, and a kraft carry handle.
-
-### Colours
-
-Use these as CSS variables. They come from `color_palette.svg`.
+Set these as CSS variables on `:root`.
 
 | Token | Hex | Use |
 |---|---|---|
-| `--cream` | `#fce0b2` | Main light background, melt pattern, text on colour |
-| `--ink` | `#140105` | Near-black text, dark sections |
-| `--rhubarb` | `#3f88c5` | Rhubarb flavour colour |
-| `--lemon` | `#f7345d` | Lemon flavour colour (pink) |
-| `--berry` | `#c40831` | Deep red accent, hover states, & |
-| `--sun` | `#f5d547` | Lemon yellow, highlights, bubbles |
-| `--honey` | `#f7c550` | Warm secondary yellow |
-| `--vanilla` | `#dfa06e` | Vanilla pod / kraft tone, six-pack section |
-| `--mint` | `#9dcdc0` | Soft cool accent |
-| `--leaf` | `#4cbb17` | Rhubarb leaf green (illustration accents only) |
-| `--forest` | `#33673b` | Dark green (illustration accents only) |
+| `--cream` | `#fce9be` | Page background, logo letters, text on colour |
+| `--kraft` | `#dfa06e` | Vanilla/kraft tone: hero pattern lines, logo outline, "80 kcal" panel |
+| `--ink` | `#140105` | Headlines, body text on cream, footer background |
+| `--rhubarb` | `#3f88c5` | Rhubarb flavour, blue section |
+| `--rhubarb-2` | `#5196c4` | Second tone of the blue pattern |
+| `--lemon` | `#f7345d` | Lemon flavour pink (can colour, 80 kcal frame) |
+| `--berry` | `#c40831` | Red section background, lips |
+| `--berry-2` | `#ce103a` | Second tone of the red pattern |
+| `--sun` | `#f5d547` | Lemon yellow accents |
 
-The page background and text colour should **morph smoothly between sections**: cream for intro, blue for rhubarb, pink for lemon, warm kraft (`--vanilla` mixed with cream) for the six-packs, ink for the footer. Drive it with GSAP ScrollTrigger, tweening the CSS variables on `<body>`.
+## Typography
 
-### Typography
+Load `web/fonts/fc-font.css` (self-hosted, no Google Fonts).
 
-- **Display:** "Fraunces" (Google Fonts, variable, with SOFT and WONK axes). Animate weight and softness the way Casa di Solare animates its variable font: on hover, on scroll, and in the taste tester.
-- **Secondary display:** "Bricolage Grotesque" ExtraBold, for labels, tickers and buttons. It echoes Slight Twist's chunky rounded type.
-- **Body:** "Bricolage Grotesque" Regular.
-- **Wordmark:** use the real wordmark from `fizzy&crush_logo.svg`. Never set the logo in a font.
+- **Headlines:** `"FC Display"` (`FCDisplay-Regular.woff2`). Always uppercase, tight leading (~0.9), ink on cream or cream on colour. Very large: hero headline ~ 7–8 vw on desktop, section headlines ~ 6 vw.
+- **Small caps lines and body copy:** `"FC Font Info Bold"`. Always uppercase, 15–18 px, leading ~1.25, max ~ 46 ch per line, as in the mockup.
+- **Logo:** never set in a font. Use the SVGs.
 
-## Assets (all in the uploaded pack)
+## Assets
 
-**3D**
-- `web/can_rhubarb.glb`, `web/can_lemon.glb`
-  - The real 500 ml can: body with the printed label, lid, tab and base.
-  - Real-world metres, base at the origin, Y-up.
-  - Draco-compressed, about 1 MB each. Load them with drei's `useGLTF` (Draco enabled).
-  - The original `can_3d.blend` is the source file only and cannot be used in the browser.
-
-**Renders (WebP, up to 2400 px)**
-- `web/rhubarb_float_front_alpha.webp`, `web/lemon_float_front_alpha.webp`: floating cans with transparency.
-- `web/rhubarb_name_closeup.webp`, `web/lemon_name_closeup.webp`: macro shots of the flavour name.
-- `web/duo_pattern.webp`: both cans on the brand pattern. `web/duo_alpha.webp`: both cans, transparent.
-- `web/sixpack_rhubarb.webp`, `web/sixpack_lemon.webp`, `web/sixpack_pair.webp`, `web/sixpack_rhubarb_diff.webp`, `web/sixpack_lemon_diff.webp`: six-pack cartons (the `_diff` files are alternate shots).
-
-**Vector**
-- `fizzy&crush_logo.svg`: the wordmark (pink outline plate, cream letters).
-- `brand_pattern.svg`: the flowing "melt" pattern (pink and cream paths).
-- `rhubarb.svg`, `Lemon.svg`, `vanilla.svg`: flavour illustrations.
-
-**Textures:** `label_rhubarb_500ml_final.png`, `label_lemon_500ml_final.png` (the flat can labels, for texture swaps).
-
-Fallback: use the WebP renders wherever WebGL is unavailable or the device is low-power.
+| File | Where it goes |
+|---|---|
+| `web/svg/logo_loader.svg` | Loading screen logo. Inline it (import with `?raw` and `dangerouslySetInnerHTML`, or convert it to a React component). It has a built-in liquid layer clipped to the letters, driven by the CSS variable `--fill` (0 → 1). |
+| `web/svg/straw_fill.svg` | Lips + striped straw for the story section. Inline it. `--fill` (0 → 1) makes the patterned liquid travel up the straw from the bottom end to the lips. |
+| `web/svg/pattern_cream.svg` | Hero and loader background (kraft lines on cream). |
+| `web/svg/pattern_rhubarb.svg` | Rhubarb section background (two blues). |
+| `web/svg/pattern_lemon.svg` | Lemon section background (two reds). |
+| `web/svg/demo.html` | Reference only: shows the two interactive SVGs at different fill levels. |
+| `web/can_rhubarb.glb`, `web/can_lemon.glb` | The real 500 ml cans for the hero 3D can (Draco, Y-up, base at the origin). |
+| `web/lemon_float_front.webp` | Lemon can floating on a pink backdrop: the "80 kcal" frame. `web/rhubarb_float_front.webp` is the blue alternative. |
+| `web/rhubarb_name_closeup.webp`, `web/lemon_name_closeup.webp` | Transparent close-ups of the can with the flavour name, for the flavour sections. |
+| `web/sixpack_pair.webp` | Transparent render of both six-packs, for the six-pack section. |
+| `web/rhubarb_float_front_alpha.webp`, `web/lemon_float_front_alpha.webp` | Transparent floating cans: fallback for the 3D can when WebGL is unavailable. |
+| `Lemon.svg`, `rhubarb.svg`, `vanilla.svg` | Flavour illustrations: hero flavour buttons, vanilla flower next to the hero headline, floating props in the 80 kcal frame. |
+| `iconbev_logo.svg` | IconBev company mark for the footer (cream). |
+| `fizzy&crush_logo.svg` | Static wordmark (for the favicon and OG image only). |
 
 ## Tech
 
-- React + Vite + TypeScript + Tailwind (Lovable default).
-- **3D:** `three`, `@react-three/fiber`, `@react-three/drei`.
-  - Use **one persistent full-screen `<Canvas>`** fixed behind the page. Each DOM section places the can in it through drei `<View>` (or a scroll-driven camera rig), so the can never reloads and can travel between sections.
-  - Lighting: `<Environment preset="studio">`, ACES or AgX tone mapping, sRGB output.
-  - Materials: aluminium parts MeshPhysicalMaterial with metalness 1, roughness about 0.28; label clearcoat about 0.5 so it reads like a varnished print.
-  - `dpr={[1, 2]}`, with `<AdaptiveDpr>` and `<PerformanceMonitor>` to scale down.
-- **Motion:**
-  - `gsap` + `ScrollTrigger` for all scroll choreography.
-  - `lenis` for smooth scrolling, synced to the ScrollTrigger ticker.
-  - SplitType (or GSAP SplitText) for line/word/character reveals.
-- Respect `prefers-reduced-motion`: no smooth-scroll hijack, no auto-rotation, fades instead of masks.
-- Lighthouse targets: performance ≥ 85 on desktop, LCP < 2.5 s. Lazy-load everything below the hero. Preload the hero GLB and fonts.
-- Fully responsive. On mobile:
-  - The 3D can stays, but drag-to-rotate replaces hover effects.
-  - Clip-mask reveals stay.
-  - Horizontal carousels become swipeable.
+- React + Vite + TypeScript + Tailwind.
+- `three`, `@react-three/fiber`, `@react-three/drei` for the hero can only.
+- `gsap` + `ScrollTrigger` for scroll-driven effects, `lenis` for smooth scrolling (synced to the ScrollTrigger ticker).
+- All copy in one `content.ts`.
+- Respect `prefers-reduced-motion`: no smooth-scroll hijack, patterns stop flowing, the loader and straw jump straight to their end state, the can does not shake.
+- Responsive: on mobile every two-column section stacks (image above text), headlines scale down with `clamp()`.
 
-## Global interaction system (everywhere)
+## Shared component: `<FlowingPattern variant="cream | rhubarb | lemon" />`
 
-- **Custom cursor:**
-  - A small cream bubble with a thin ink ring.
-  - It grows and shows a word on hover: "DRAG" on carousels, "TASTE" on flavours, "SHOP" on buy buttons, "SPIN" over the 3D can.
-  - Inside it, it carries little fizz bubbles that trail with lag.
-  - Hidden on touch devices.
-- **Magnetic buttons:** pill-shaped, ink on cream. On hover they fill with the current flavour colour from the cursor point (a circular clip grow).
-- **Fizz particles:** a lightweight canvas or instanced-mesh layer of rising bubbles. Their density and speed tie to scroll velocity, and they burst around the cursor on click.
-- **Scroll-velocity skew** on the big marquees and huge headlines (small, max 6°).
-- **Sticky top bar:**
-  - Left: the logo (small).
-  - Centre: section names with an active dot that slides between them.
-  - Right: a "Buy a six-pack" pill.
-  - It hides when scrolling down and returns when scrolling up.
-- **Every heading reveals by line from a clip mask** (Casa style). Body copy fades up word by word in small groups.
-- **Section transitions:** circular clip-path wipes that grow from the can's on-screen position into the next section's colour.
+The mockup's arrows mean the pattern backgrounds are alive: they slowly **flow like liquid**. Build one reusable full-bleed background component:
 
-## Page, section by section
+- Preferred: a small WebGL plane (a fullscreen `<canvas>` with a fragment shader, using `ogl` or a separate lightweight R3F canvas) that samples the pattern SVG rasterised to a 2048 px texture, repeats it (the pattern tiles horizontally), drifts it slowly sideways (about one tile per 60–90 s) and warps the UVs with a gentle low-frequency noise (amplitude ~ 0.01–0.015, speed slow) so the lines ripple like melting cream. Scroll velocity may add a little extra drift.
+- Fallback (no WebGL, low-power or reduced motion): the SVG as a CSS `background-image` (`background-size: 1100px auto`, repeat) with a slow `background-position` drift animation, or static for reduced motion.
+- Pause when the section is off-screen (IntersectionObserver).
+- Pattern scale should match the mockup: on a 1728 px wide screen one pattern tile is roughly 1100 px wide.
 
-### 0. Preloader
+## 0. Loading screen
 
-- Cream screen. The wordmark's letters drop in one by one with a squash-and-stretch bounce.
-- A counter (0–100) counts in Bricolage Grotesque, small, bottom right.
-- When loaded, a circular mask grows from the centre and reveals the hero. The bubbles from the cursor system start rising.
+Full-screen, fixed, above everything.
 
-### 1. Hero — "Intro"
+- Background: `<FlowingPattern variant="cream" />` (the "live background"), so it continues seamlessly into the hero.
+- Centre: the inline `logo_loader.svg`, about 40 vw wide (min 280 px, max 720 px).
+- **The loading effect is someone pouring the soda into the logo.** Set the SVG's `--fill` from real load progress: drei `useProgress` for the GLBs, plus `document.fonts.ready` and the hero images. Smooth the value (lerp or a GSAP tween) so it never jumps, and keep a minimum duration of about 1.8 s so the pour is visible. The liquid rises only inside the cream letters; the kraft outline plate never changes. The built-in waves slide and small bubbles rise inside the letters.
+- The liquid colour follows the default flavour (rhubarb blue: `--liquid: #3f88c5; --liquid-top: #5196c4`).
+- Small progress number under the logo in FC Font Info Bold, e.g. "64%" (optional, keep it subtle).
+- At 100%: hold 300 ms, give the logo a small squash-and-stretch "full" bounce, then the logo scales down and fades while the loader fades out, revealing the hero (the pattern underneath stays still, so it feels like one continuous background).
+- Block scrolling while the loader is showing.
 
-- **The 3D can is the star**, centred, slightly tilted, floating with a gentle bob.
-  - It rotates slowly on its own, and the user can drag it to spin with inertia (OrbitControls: rotation only, no zoom or pan, limited polar angle).
-  - It tilts a little toward the cursor (parallax).
-- **Behind it**, a soft glowing blob, our version of Casa di Solare's WebGL sun: a large, slowly morphing, noise-displaced radial gradient in the current flavour colour, cream at the core.
-- **Huge headline behind and around the can**, staggered lines, mixed styles:
-  - "*Fruit,* meet / VANILLA. / A creamy soda / with a CRUSH."
-- **A flavour switch pill** (Rhubarb | Lemon).
-  - Switching does a "melt" wipe: the brand pattern sweeps across as a mask.
-  - The can swaps model or label with a quick 360° spin.
-  - The glow and the page colour morph between blue and pink.
-- "Scroll to fizz ↓" hint at the bottom with a bouncing bubble.
-- CTA: "Shop the six-packs".
+## 1. Hero — "Fruit meets vanilla"
 
-### 2. Fact ticker
+Full viewport height. Background: `<FlowingPattern variant="cream" />`.
 
-A full-width marquee band in ink with cream text, skewing with scroll velocity:
+**Left half: the 3D can (interactive, but limited).**
+- One `<Canvas>` with the GLB can, tilted about 25° to the left as in the mockup, floating with a slow vertical bob and a soft contact shadow on the pattern below.
+- Lighting: `<Environment preset="studio">`, ACES/AgX tone mapping. Aluminium parts metalness 1, roughness ~0.28; label clearcoat ~0.5.
+- **Interaction:** the user can grab and drag the can to turn it around its own long axis, **but only about ±60° from the rest pose** (clamp it). On release it springs back to the rest pose with a soft overshoot (a damped spring, e.g. `@react-spring/three` or a GSAP elastic ease). No zoom, no pan, no full 360° spin.
+- While the cursor hovers the can, it does a small playful **shake** (a quick ±4° wobble, a "fizz" jiggle) once per hover. The cursor becomes `grab` / `grabbing`.
+- Small parallax: the can tilts a few degrees toward the cursor.
+- On touch devices horizontal drag turns the can (same ±60° clamp); vertical swipes must still scroll the page.
+- Fallback without WebGL: `rhubarb_float_front_alpha.webp` / `lemon_float_front_alpha.webp`.
 
-`CREAMY SODA · BRIGHT FRUIT · SMOOTH VANILLA · 500 ML CANS · LIGHTLY SPARKLING · TWO FLAVOURS · ONE CRUSH ·`
+**Right half:**
+- `vanilla.svg` (vanilla flower and pod) sits overlapping the top-left of the headline, as in the mockup, with a gentle sway.
+- Headline in FC Display, ink, three lines: **FRUIT / MEETS / VANILLA**. Reveal line by line from a clip mask after the loader.
+- Small line in FC Font Info Bold: **TRY THE FLAVOURS BELOW ↓**
+- **Two flavour buttons**: `Lemon.svg` and `rhubarb.svg` as icons (~110 px), no text, `aria-label="Lemon & Vanilla"` / `"Rhubarb & Vanilla"`, `aria-pressed`. Hover: lift and rotate a few degrees. The active one is slightly larger with a soft cream glow underneath.
+- **Clicking an icon switches the can**: the can does a quick full spin while the label swaps (load the other GLB, or swap the label texture), then settles back to the rest pose. Rhubarb is the default. The active flavour is global state: it also sets the straw liquid colour in section 2.
 
-Only use these facts. Do not invent nutrition or health claims.
+**Bottom centre:** **↓ SCROLL FOR MORE ↓** in FC Font Info Bold, with the arrows bobbing gently. Clicking it smooth-scrolls to section 2. It fades out once the user starts scrolling.
 
-### 3. Manifesto — "The melt" (Casa "sanctuary" block)
+## 2. Story — "A soda made for slow sips and big grins"
 
-- A cream section that reveals through a growing rounded clip-mask.
-- `brand_pattern.svg` animates as a slow, liquid "melt": an SVG `feTurbulence` + `feDisplacementMap`, or a shader on a plane, drifting with scroll.
-- Huge staggered headline:
-  - "A SODA / *made for* / slow SIPS / and big / GRINS*"
-- Copy:
-  > Fizzy & Crush started with a simple crush: the cream soda you remember, grown up a little. We pair bright, real-tasting fruit with smooth vanilla and just enough fizz to make it dance. Two flavours, one mood: sunny, silly and very drinkable.
+Plain `--cream` background, generous height (about 100 vh).
 
-### 4. Flavours — two full-bleed sections (Slight Twist flavour panels, Casa interactions)
+- **Left:** headline in FC Display, ink, five lines: **A SODA / MADE FOR / SLOW SIPS / AND BIG / GRINS**.
+- **Right:** the inline `straw_fill.svg`: the red lips at the top right, the striped straw running diagonally down and out of the bottom of the section (let it overflow the section bottom and overlap the top of section 3, as in the mockup).
+- Body copy under the lips, in FC Font Info Bold:
+  > FIZZY & CRUSH STARTED WITH A SIMPLE CRUSH. THE CREAM SODA YOU REMEMBER, GROWN UP A LITTLE. WE PAIR BRIGHT, REAL-TASTING FRUIT WITH SMOOTH VANILLA AND JUST ENOUGH FIZZ TO MAKE IT DANCE. TWO FLAVOURS, ONE MOOD: SUNNY, SILLY AND VERY DRINKABLE.
+- **Scroll effect: the straw fills as you scroll.** Drive the SVG's `--fill` from 0 to 1 with a ScrollTrigger scrub: start when the section top reaches 80% of the viewport, end when the section's centre passes the top third. The liquid is the brand pattern in the active flavour's colours and travels up the straw from the bottom end to the lips, following the bend.
+  - Rhubarb: `--liq-a: #3f88c5; --liq-b: #fce9be`
+  - Lemon: `--liq-a: #c40831; --liq-b: #fce9be`
+- When `--fill` reaches 1, the lips do one small "sip" squash (scaleY 0.96 and back) and three tiny cream bubbles pop out of the corner of the mouth.
+- Scrolling back up drains the straw again (the scrub is reversible).
 
-For each flavour:
-- The section is pinned for about 150 vh while scrolling.
-- The 3D can stays centred and **rotates with scroll** through 360° so the whole label is shown.
-- The name builds up in giant type around it.
-- **Background:** the flavour colour, with the melt pattern in cream at 15% opacity.
-- **Left column:** the flavour name, very large (Fraunces, weight animating from 300 to 900 as the section enters).
-  - Under it, the ingredient line in Bricolage caps: "RHUBARB · VANILLA · BUBBLES" / "LEMON · VANILLA · BUBBLES".
-  - Then three taste notes that pop in one by one as the can turns, each with a tiny icon.
-- **Right column:** the macro render (`*_name_closeup.webp`) in a rounded mask that follows the cursor slightly (parallax).
-- **Illustrations:**
-  - The flavour illustrations (`rhubarb.svg` + `vanilla.svg`, or `Lemon.svg` + `vanilla.svg`) float around the can in parallax depth.
-  - **Casa "hover to reveal":** hovering the flavour name reveals the illustration large under the cursor through a circular mask.
-- **CTA:** "Shop Rhubarb & Vanilla" / "Shop Lemon & Vanilla".
-- **Transition** from rhubarb to lemon: a circular wipe from the can.
+## 3. "80 kcal / can"
 
-**Rhubarb & Vanilla** (blue):
-- Tagline: "*Tart* meets *tender.*"
-- Notes:
-  - "Tangy pink rhubarb up front"
-  - "Smooth vanilla cream in the middle"
-  - "A soft, fizzy finish"
-- Copy:
-  > Rhubarb brings the snap: bright, tart and a little bit cheeky. Vanilla rounds it off like a scoop of ice cream on a crumble. It's the garden-party soda you didn't know you needed.
+A full-width band about 70 vh tall, split in two:
 
-**Lemon & Vanilla** (pink):
-- Tagline: "*Zesty* meets *dreamy.*"
-- Notes:
-  - "Sunny lemon zest"
-  - "Silky vanilla, like lemon cream pie"
-  - "Light, lively bubbles"
-- Copy:
-  > Lemon wakes you up, vanilla calms you down. Together they taste like a lemon meringue on a summer afternoon, bright, creamy and gone far too fast.
+- **Left ~35%:** solid `--kraft` panel with **80 / KCAL / /CAN** in FC Display, ink, three lines.
+- **Right ~65%:** a media frame. By default it shows `lemon_float_front.webp` (lemon can floating on pink), `object-fit: cover`, with `Lemon.svg` and two `vanilla.svg` flowers floating around the can at different parallax depths, as in the mockup. The image slowly zooms (scale 1.08 → 1) as the section scrolls into view.
+- Build the frame as a `<MediaFrame>` that also accepts a video: if `content.ts` has `kcalVideo` set (e.g. `/assets/kcal_loop.mp4`), render a muted, looping, `playsInline` autoplay `<video>` with the image as its poster instead.
 
-### 5. Taste tester — "Taste" (Casa type-tester, reimagined)
+## 4. Rhubarb & Vanilla
 
-A playful "Mix your mood" tool. It only changes the visuals and copy. It is not a real product configurator.
+Full-width section about 80 vh tall. Background: `<FlowingPattern variant="rhubarb" />`.
 
-Three sliders:
-- **FRUIT ←→ VANILLA**
-- **FIZZ: still ←→ wild**
-- **MOOD: chill ←→ party**
+- `rhubarb_name_closeup.webp` (transparent) placed top-centre and **bleeding off the top edge**, tilted as in the mockup, so the can looks like it is dipping into the section. Subtle parallax (moves ~60 px slower than the scroll).
+- Headline in FC Display, cream: **RHUBARB & / VANILLA**, bottom left.
+- Body copy, cream, FC Font Info Bold:
+  > RHUBARB BRINGS THE SNAP: BRIGHT, TART AND A LITTLE BIT CHEEKY. VANILLA ROUNDS IT OFF LIKE A SCOOP OF ICE CREAM ON A CRUMBLE. IT'S THE GARDEN-PARTY SODA YOU DIDN'T KNOW YOU NEEDED.
+- Headline and copy reveal from a clip mask when the section enters.
 
-What the sliders change live:
-- **FRUIT ←→ VANILLA:**
-  - the background blends between the flavour colour and cream
-  - the headline's Fraunces SOFT/weight axes change
-  - the vanilla illustration grows or shrinks
-- **FIZZ:** bubble density and speed
-- **MOOD:** headline letter-spacing and wobble
+## 5. Lemon & Vanilla
 
-A rhubarb/lemon toggle sits on top. A big sample sentence updates; let the user type their own (like Casa's pangram) and add a "Generate a new one" button that cycles fun lines:
-- "Crush on you, fizz forever."
-- "Vanilla called, rhubarb answered."
-- "Zest friends."
+Same layout as section 4. Background: `<FlowingPattern variant="lemon" />`.
 
-A small 3D can sits beside it and fills with liquid as FIZZ goes up (a simple animated plane inside the can, optional).
+- `lemon_name_closeup.webp` bleeding off the top edge.
+- Headline in FC Display, cream: **LEMON & / VANILLA**.
+- Body copy, cream:
+  > LEMON WAKES YOU UP, VANILLA CALMS YOU DOWN. TOGETHER THEY TASTE LIKE A LEMON MERINGUE ON A SUMMER AFTERNOON: BRIGHT, CREAMY AND GONE FAR TOO FAST.
 
-### 6. Our range — "Drag to view" (Slight Twist carousel)
+## 6. Six-pack — "Six cans in one crush"
 
-- A horizontal, inertial, drag carousel with the custom "DRAG" cursor. Cards tilt in 3D toward the cursor.
-- Five cards:
-  1. Rhubarb & Vanilla can (alpha render)
-  2. Lemon & Vanilla can
-  3. Rhubarb six-pack
-  4. Lemon six-pack
-  5. The pair (`sixpack_pair.webp`)
-- Each card shows: the name, an ingredient line, the size (500 ml / 6 × 500 ml) and a "Shop" button.
-- Hovering a card floods the section background with that product's colour.
+`--cream` background.
 
-### 7. Six-packs — "Six-packs" (multipack block)
+- `sixpack_pair.webp` (both cartons, transparent) centred near the top, with a slow float and a soft shadow. It rises into place as the section enters.
+- Headline in FC Display, ink, two lines: **SIX CANS / IN ONE CRUSH**.
+- Body copy, ink:
+  > SIX CANS, ONE CARTON, ZERO CHILL REQUIRED. OUR KRAFT SIX-PACKS WEAR THE FIZZY & CRUSH MELT ON THE OUTSIDE AND SHOW OFF THE CANS THROUGH DIE-CUT LOGO WINDOWS. GRAB ONE FOR YOUR NEXT PICNIC.
 
-- Warm kraft-coloured section.
-- **The six-pack renders are the hero here.** A pinned scroll scene where the rhubarb six-pack slides in, rotates slightly, then cross-fades or flips to the lemon six-pack (use the `_diff` alternate shots as the second angle).
-- **Hotspots** on the carton reveal tooltips on hover:
-  - "Die-cut logo windows: say hi to the cans inside"
-  - "Recyclable kraft board"
-  - "Carry handle built in"
-  - "6 × 500 ml"
-- Copy:
-  > Six cans, one carton, zero chill required. Our kraft six-packs wear the Fizzy & Crush melt on the outside and show off the cans through die-cut logo windows. Grab one of each, or go all in on your favourite.
-- Lists like Slight Twist's variety pack:
-  - **Rhubarb six-pack:** 6 × Rhubarb & Vanilla (6 × 500 ml)
-  - **Lemon six-pack:** 6 × Lemon & Vanilla (6 × 500 ml)
-- CTA buttons: "Buy the Rhubarb six" / "Buy the Lemon six".
-- Prices are placeholders, clearly marked `TODO`.
+## 7. Footer
 
-### 8. Pick your side (Casa weight-list interaction)
+`--ink` background, compact (about 30 vh).
 
-- A split screen, blue left and pink right, each with its can render (`*_float_front_alpha.webp`) and a giant name.
-- Hovering one side expands it to about 70% width with an elastic ease. Its name grows in weight while the other shrinks and desaturates.
-- On mobile it is a tap toggle.
-- Centre line text: "Team Rhubarb or Team Lemon?"
-- Clicking a side scrolls to that flavour's section.
+- `iconbev_logo.svg` centred (~70 px wide, cream).
+- Under it, in FC Font Info Bold, cream: **©2026 IconBev A/S**.
 
-### 9. Friendship is fizzing (newsletter)
+## Quality bar
 
-- Pink or cream section with `duo_pattern.webp` as a parallax backdrop.
-- Copy: "Get first sips of new flavours, drops and pop-ups." Placeholder offer text marked `TODO`; do not promise a discount.
-- Email field and button; on submit, bubbles burst.
-- No backend: store submissions in a mock handler, or connect Supabase if available.
-
-### 10. Footer — "Find us"
-
-- Ink background.
-- A huge cream wordmark from the SVG that scales with scroll. Its letters wobble on hover, one by one.
-- A marquee: "THANK YOU FOR STOPPING BY · STAY FIZZY · ".
-- Columns:
-  - stockists (placeholder: "hello@fizzyandcrush.com" marked `TODO`)
-  - socials (Instagram, TikTok placeholders)
-  - legal links (Privacy, Terms, Shipping)
-- A tiny line: "500 ml cans · Creamy soda · Made with a crush".
-
-## Quality bar and details
-
-- Generous spacing on a 12-column grid. Headlines run edge to edge. Mix italic and upright words inside headlines, and add little asterisks or superscripts for charm (Casa style).
-- Rounded corners everywhere (24–40 px). Buttons are pills.
-- Every interactive element has a hover, focus and active state. Keyboard accessible, with a visible focus ring in `--berry`.
-- Semantic HTML, alt text on every image, `aria-live` for the flavour switch.
-- SEO title: "Fizzy & Crush — Creamy soda with a crush". Meta description from the brand copy. OG image: `duo_pattern.webp`.
-- Componentise: `Preloader`, `Cursor`, `Nav`, `CanStage` (the persistent R3F canvas), `Hero`, `Ticker`, `Manifesto`, `FlavourSection`, `TasteTester`, `RangeCarousel`, `SixPacks`, `PickYourSide`, `Newsletter`, `Footer`.
-- All copy goes in one `content.ts` so it is easy to edit.
-- Do not add an age gate, alcohol language, health claims, fake reviews or fake prices.
+- Match the mockup's proportions: wide margins (~6 vw), big headlines, lots of air.
+- Every interactive element has hover, focus and active states; keyboard accessible with a visible focus ring in `--berry`.
+- Alt text on every image. The flavour switch announces the change with `aria-live="polite"`.
+- SEO title: "Fizzy & Crush — Creamy soda with a crush". OG image: the hero composition or `duo_pattern.webp`.
+- Lighthouse performance ≥ 85 on desktop. Preload the default GLB, the fonts and `pattern_cream.svg`; lazy-load everything below the hero.
+- Component names: `Loader`, `FlowingPattern`, `HeroCan`, `Hero`, `FlavourSwitch`, `StorySection` (with `StrawFill`), `KcalSection` (with `MediaFrame`), `FlavourSection`, `SixPackSection`, `Footer`.
+- No age gate, no alcohol language, no health claims beyond the "80 kcal / can" line, no fake reviews or prices.
